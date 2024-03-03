@@ -49,3 +49,8 @@ group :development do
 
   gem 'error_highlight', '>= 0.4.0', platforms: [:ruby]
 end
+
+# Add devis, devise-jwt and jsonapi-serializer for api authentication
+gem 'devise'
+gem 'devise-jwt'
+gem 'jsonapi-serializer'
