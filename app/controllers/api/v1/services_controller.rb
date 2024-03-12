@@ -35,6 +35,18 @@ class Api::V1::ServicesController < ApplicationController
     render json: { error: 'Service not found' }, status: :not_found
   end
 
+  def destroy
+    @service = current_user.services.find(params[:id])
+
+    if @service.destroy
+      render json: { data: 'Service was deleted successfully', status: 'success' }, status: :ok
+    else
+      render json: { errors: @service.errors.full_mesages }
+    end
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: 'Service not found' }, status: :not_found
+  end
+
   private
 
   def service_params
