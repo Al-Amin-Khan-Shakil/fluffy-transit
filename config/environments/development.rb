@@ -70,4 +70,9 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3001 }
+
+  # Default development environment's URl
+  Rails.application.routes.default_url_options = {
+    host: "http://localhost:3001"
+  }
 end
