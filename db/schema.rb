@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_12_155801) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_18_095855) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,6 +42,26 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_12_155801) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "reservations", force: :cascade do |t|
+    t.string "pickup_address"
+    t.string "drop_address"
+    t.string "description"
+    t.string "contact"
+    t.date "pickup_date"
+    t.string "client_name"
+    t.integer "pet_amount"
+    t.string "warning_message"
+    t.boolean "pending", default: true
+    t.boolean "on_way", default: false
+    t.boolean "fulfilled", default: false
+    t.bigint "service_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_id"], name: "index_reservations_on_service_id"
+    t.index ["user_id"], name: "index_reservations_on_user_id"
+  end
+
   create_table "services", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -70,5 +90,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_12_155801) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "reservations", "services"
+  add_foreign_key "reservations", "users"
   add_foreign_key "services", "users"
 end
