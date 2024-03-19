@@ -7,6 +7,10 @@ class Reservation < ApplicationRecord
   validate :pet_amount, numericality: { greater_than: 0 }
   validate :pickup_date_cannot_be_in_the_past
 
+  def total_cost
+    pet_amount * service.min_cost
+  end
+
   private
 
   def pickup_date_cannot_be_in_the_past

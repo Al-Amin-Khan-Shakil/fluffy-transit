@@ -41,7 +41,7 @@ class Api::V1::ServicesController < ApplicationController
     if @service.destroy
       render json: { data: 'Service was deleted successfully', status: 'success' }, status: :ok
     else
-      render json: { errors: @service.errors.full_mesages }
+      render json: { errors: @service.errors.full_messages }
     end
   rescue ActiveRecord::RecordNotFound
     render json: { error: 'Service not found' }, status: :not_found
@@ -50,6 +50,6 @@ class Api::V1::ServicesController < ApplicationController
   private
 
   def service_params
-    params.require(:post).permit(:name, :description, :min_cost, :image)
+    params.require(:service).permit(:name, :description, :min_cost, :image)
   end
 end
